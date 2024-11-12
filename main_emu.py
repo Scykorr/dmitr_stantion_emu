@@ -70,10 +70,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.update()
 
     def change_horizont_left(self):
-        if int(self.lineEdit.text()) - 1 < 0:
-            self.lineEdit.setText(str(int(self.lineEdit.text()) - 1 + 360))
+        if int(self.lineEdit.text()) - 5 < 0:
+            self.lineEdit.setText(str(int(self.lineEdit.text()) - 5 + 360))
         else:
-            self.lineEdit.setText(str(int(self.lineEdit.text()) - 1))
+            self.lineEdit.setText(str(int(self.lineEdit.text()) - 5))
         if self.img_num - 1 < 0:
             self.img_num = self.img_num + 9
         else:
@@ -81,10 +81,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.update()
 
     def change_horizont_right(self):
-        if int(self.lineEdit.text()) + 1 > 359:
-            self.lineEdit.setText(str((int(self.lineEdit.text()) + 1) % 360))
+        if int(self.lineEdit.text()) + 5 > 359:
+            self.lineEdit.setText(str((int(self.lineEdit.text()) + 5) % 360))
         else:
-            self.lineEdit.setText(str(int(self.lineEdit.text()) + 1))
+            self.lineEdit.setText(str(int(self.lineEdit.text()) + 5))
         self.img_num = (self.img_num + 1) % 10
         self.update()
 
