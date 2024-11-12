@@ -20,11 +20,14 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.img_width = 1000
         self.img_height = 250
         self.img_num = 0
+        self.antenna_height = 150
         self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
 
         self.img_label = self.label
+        self.antenna_w = 60
+        self.antenna_h = 90
         # self.label.setText("<h2 style='color: blue'>img/horizon_main.jpg</h2>")
         # w = self.image.size().width()
         # h = self.image.size().height()
@@ -49,18 +52,21 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # qp.setPen(QPen(Qt.red, 5))
         # qp.drawLine(10, 10, 500, 500)
         # self.drawLines(qp)
-        # self.drawBrushes(qp)
+        self.change_horizont_check()
+        self.drawAntenna(qp)
         # self.drawBrushes(qp)
         qp.end()
 
     def change_horizont_up(self):
-        if int(self.lineEdit_2.text()) <= 999:
+        if int(self.lineEdit_2.text()) <= 999 and self.antenna_height > 40:
             self.lineEdit_2.setText(str(int(self.lineEdit_2.text()) + 1))
+            self.antenna_height -= 1
         self.update()
 
     def change_horizont_down(self):
         if int(self.lineEdit_2.text()) > 0:
             self.lineEdit_2.setText(str(int(self.lineEdit_2.text()) - 1))
+            self.antenna_height += 1
         self.update()
 
     def change_horizont_left(self):
@@ -81,6 +87,26 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit.setText(str(int(self.lineEdit.text()) + 1))
         self.img_num = (self.img_num + 1) % 10
         self.update()
+
+    def change_horizont_check(self):
+        if self.checkBox_4.isChecked():
+            self.antenna_w = 60
+            self.antenna_h = 90
+        else:
+            self.antenna_h = 60
+            self.antenna_w = 90
+
+
+
+    def drawAntenna(self, qp):
+        brush = QBrush(Qt.SolidPattern)
+
+        brush.setStyle(Qt.Dense3Pattern)
+        qp.setBrush(brush)
+        qp.drawRect(400, self.antenna_height, self.antenna_w, self.antenna_h)
+
+        # qp.setPen(QPen(Qt.red, 5))
+        # qp.drawLine(10, 10, 500, 500)
 
     def drawLines(self, qp):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
@@ -108,47 +134,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         pen.setDashPattern([1, 4, 5, 4])
         qp.setPen(pen)
         qp.drawLine(20, 240, 250, 240)
-
-    def drawBrushes(self, qp):
-        brush = QBrush(Qt.SolidPattern)
-        qp.setBrush(brush)
-        qp.drawRect(10, 15, 90, 60)
-
-        brush.setStyle(Qt.Dense1Pattern)
-        qp.setBrush(brush)
-        qp.drawRect(130, 15, 90, 60)
-
-        brush.setStyle(Qt.Dense2Pattern)
-        qp.setBrush(brush)
-        qp.drawRect(250, 15, 90, 60)
-
-        brush.setStyle(Qt.Dense3Pattern)
-        qp.setBrush(brush)
-        qp.drawRect(10, 105, 90, 60)
-
-        brush.setStyle(Qt.DiagCrossPattern)
-        qp.setBrush(brush)
-        qp.drawRect(10, 105, 90, 60)
-
-        brush.setStyle(Qt.Dense5Pattern)
-        qp.setBrush(brush)
-        qp.drawRect(130, 105, 90, 60)
-
-        brush.setStyle(Qt.Dense6Pattern)
-        qp.setBrush(brush)
-        qp.drawRect(250, 105, 90, 60)
-
-        brush.setStyle(Qt.HorPattern)
-        qp.setBrush(brush)
-        qp.drawRect(10, 195, 90, 60)
-
-        brush.setStyle(Qt.VerPattern)
-        qp.setBrush(brush)
-        qp.drawRect(130, 195, 90, 60)
-
-        brush.setStyle(Qt.BDiagPattern)
-        qp.setBrush(brush)
-        qp.drawRect(250, 195, 90, 60)
 
     def drawBrushes(self, qp):
         brush = QBrush(Qt.SolidPattern)
