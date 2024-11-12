@@ -21,6 +21,18 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QtCore.QRect(20, 20, 751, 181))
         self.label.setText("")
         self.label.setObjectName("label")
+        self.pushButton_arrow_left = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_arrow_left.setGeometry(QtCore.QRect(550, 100, 75, 23))
+        self.pushButton_arrow_left.setObjectName("pushButton_arrow_left")
+        self.pushButton_arrow_right = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_arrow_right.setGeometry(QtCore.QRect(660, 100, 75, 23))
+        self.pushButton_arrow_right.setObjectName("pushButton_arrow_right")
+        self.pushButton_arrow_up = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_arrow_up.setGeometry(QtCore.QRect(610, 70, 75, 23))
+        self.pushButton_arrow_up.setObjectName("pushButton_arrow_up")
+        self.pushButton_arrow_down = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_arrow_down.setGeometry(QtCore.QRect(610, 130, 75, 23))
+        self.pushButton_arrow_down.setObjectName("pushButton_arrow_down")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -36,6 +48,10 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pushButton_arrow_left.setText(_translate("MainWindow", "˂"))
+        self.pushButton_arrow_right.setText(_translate("MainWindow", "˃"))
+        self.pushButton_arrow_up.setText(_translate("MainWindow", "˄"))
+        self.pushButton_arrow_down.setText(_translate("MainWindow", "˅"))
 
 
 if __name__ == "__main__":

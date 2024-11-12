@@ -5,8 +5,8 @@ import sys
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QApplication
-from PyQt5.QtGui import QPainter, QColor, QPen, QBrush
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter, QColor, QPen, QBrush, QPixmap
+from PyQt5.QtCore import Qt, QPoint
 from GUI.main_emu import Ui_MainWindow
 
 
@@ -17,6 +17,26 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # self.change_size(341, 300)
         self.setupUi(self)
         self.setWindowTitle('Основное окно эмулятора')
+        self.img_width = 1000
+        self.img_height = 250
+        self.up_coord = 0
+        self.down_coord = 0
+        self.left_coord = 0
+        self.right_coord = 0
+        self.img_address = f'img/horizon_main_step_u{self.up_coord}d{self.down_coord}r{self.right_coord}l{self.left_coord}.jpg'
+        self.image = QPixmap(self.img_address).scaled(
+            self.img_width, self.img_height)
+
+        self.img_label = self.label
+        # self.label.setText("<h2 style='color: blue'>img/horizon_main.jpg</h2>")
+        # w = self.image.size().width()
+        # h = self.image.size().height()
+        # self.background_image = self.img_label
+        # self.background_image.move(w - 240, h - 100)
+        self.pushButton_arrow_up.clicked.connect(self.change_horizont_up)
+        self.pushButton_arrow_down.clicked.connect(self.change_horizont_down)
+        self.pushButton_arrow_right.clicked.connect(self.change_horizont_right)
+        self.pushButton_arrow_left.clicked.connect(self.change_horizont_left)
 
     def change_size(self, width, height):
         self.setFixedWidth(width)
@@ -25,10 +45,44 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
+        self.img_address = f'img/horizon_main_step_u{self.up_coord}d{self.down_coord}r{self.right_coord}l{self.left_coord}.jpg'
+        self.image = QPixmap(
+            self.img_address)
+        qp.drawPixmap(QPoint(), self.image.scaled(self.img_width, self.img_height))  # +++
+        qp.setPen(QPen(Qt.red, 5))
+        qp.drawLine(10, 10, 500, 500)
         # self.drawLines(qp)
-        self.widget.drawBrushes(qp)
+        # self.drawBrushes(qp)
         # self.drawBrushes(qp)
         qp.end()
+
+    def change_horizont_up(self):
+        if self.down_coord == 0 and self.up_coord != 9:
+            self.up_coord += 1
+        elif self.up_coord == 0 and self.down_coord != 0:
+            self.down_coord -= 1
+        self.update()
+        print(self.img_address)
+
+    def change_horizont_down(self):
+        if self.down_coord == 0 and self.up_coord != 0:
+            self.up_coord -= 1
+        elif self.up_coord == 0 and self.down_coord != 7:
+            self.down_coord += 1
+        self.update()
+        print(self.img_address)
+
+    def change_horizont_left(self):
+        if self.left_coord != 10 and self.right_coord == 0:
+            self.left_coord += 1
+        self.update()
+        print(self.img_address)
+
+    def change_horizont_right(self):
+        if self.left_coord != 0 and self.right_coord == 0:
+            self.left_coord -= 1
+        self.update()
+        print(self.img_address)
 
     def drawLines(self, qp):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
