@@ -26,8 +26,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.img_width, self.img_height)
 
         self.img_label = self.label
-        self.antenna_w = 60
-        self.antenna_h = 90
+        self.antenna_h = 60
+        self.antenna_w = 90
         # self.label.setText("<h2 style='color: blue'>img/horizon_main.jpg</h2>")
         # w = self.image.size().width()
         # h = self.image.size().height()
@@ -37,6 +37,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_arrow_down.clicked.connect(self.change_horizont_down)
         self.pushButton_arrow_right.clicked.connect(self.change_horizont_right)
         self.pushButton_arrow_left.clicked.connect(self.change_horizont_left)
+        self.checkBox_4.stateChanged.connect(self.change_horizont_check)
 
     def change_size(self, width, height):
         self.setFixedWidth(width)
@@ -52,7 +53,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # qp.setPen(QPen(Qt.red, 5))
         # qp.drawLine(10, 10, 500, 500)
         # self.drawLines(qp)
-        self.change_horizont_check()
         self.drawAntenna(qp)
         # self.drawBrushes(qp)
         qp.end()
@@ -95,6 +95,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.antenna_h = 60
             self.antenna_w = 90
+        self.update()
 
 
 
