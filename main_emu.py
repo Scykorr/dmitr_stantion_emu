@@ -19,11 +19,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setWindowTitle('Основное окно эмулятора')
         self.img_width = 1000
         self.img_height = 250
-        self.up_coord = 0
-        self.down_coord = 0
-        self.left_coord = 0
-        self.right_coord = 0
-        self.img_address = f'img/horizon_main_step_u{self.up_coord}d{self.down_coord}r{self.right_coord}l{self.left_coord}.jpg'
+        self.img_num = 0
+        self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
 
@@ -45,44 +42,45 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
-        self.img_address = f'img/horizon_main_step_u{self.up_coord}d{self.down_coord}r{self.right_coord}l{self.left_coord}.jpg'
-        self.image = QPixmap(
-            self.img_address)
+        self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
+        self.image = QPixmap(self.img_address).scaled(
+            self.img_width, self.img_height)
         qp.drawPixmap(QPoint(), self.image.scaled(self.img_width, self.img_height))  # +++
-        qp.setPen(QPen(Qt.red, 5))
-        qp.drawLine(10, 10, 500, 500)
+        # qp.setPen(QPen(Qt.red, 5))
+        # qp.drawLine(10, 10, 500, 500)
         # self.drawLines(qp)
         # self.drawBrushes(qp)
         # self.drawBrushes(qp)
         qp.end()
 
     def change_horizont_up(self):
-        if self.down_coord == 0 and self.up_coord != 9:
-            self.up_coord += 1
-        elif self.up_coord == 0 and self.down_coord != 0:
-            self.down_coord -= 1
+        if int(self.lineEdit_2.text()) <= 999:
+            self.lineEdit_2.setText(str(int(self.lineEdit_2.text()) + 1))
         self.update()
-        print(self.img_address)
 
     def change_horizont_down(self):
-        if self.down_coord == 0 and self.up_coord != 0:
-            self.up_coord -= 1
-        elif self.up_coord == 0 and self.down_coord != 7:
-            self.down_coord += 1
+        if int(self.lineEdit_2.text()) > 0:
+            self.lineEdit_2.setText(str(int(self.lineEdit_2.text()) - 1))
         self.update()
-        print(self.img_address)
 
     def change_horizont_left(self):
-        if self.left_coord != 10 and self.right_coord == 0:
-            self.left_coord += 1
+        if int(self.lineEdit.text()) - 1 < 0:
+            self.lineEdit.setText(str(int(self.lineEdit.text()) - 1 + 360))
+        else:
+            self.lineEdit.setText(str(int(self.lineEdit.text()) - 1))
+        if self.img_num - 1 < 0:
+            self.img_num = self.img_num + 9
+        else:
+            self.img_num -= 1
         self.update()
-        print(self.img_address)
 
     def change_horizont_right(self):
-        if self.left_coord != 0 and self.right_coord == 0:
-            self.left_coord -= 1
+        if int(self.lineEdit.text()) + 1 > 359:
+            self.lineEdit.setText(str((int(self.lineEdit.text()) + 1) % 360))
+        else:
+            self.lineEdit.setText(str(int(self.lineEdit.text()) + 1))
+        self.img_num = (self.img_num + 1) % 10
         self.update()
-        print(self.img_address)
 
     def drawLines(self, qp):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
