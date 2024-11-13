@@ -20,14 +20,14 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.img_width = 1000
         self.img_height = 250
         self.img_num = 0
-        self.antenna_height = 150
+        self.antenna_height = 100
         self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
 
         self.img_label = self.label
-        self.antenna_h = 60
-        self.antenna_w = 90
+        self.antenna_w = 60
+        self.antenna_h = 90
         # self.label.setText("<h2 style='color: blue'>img/horizon_main.jpg</h2>")
         # w = self.image.size().width()
         # h = self.image.size().height()
@@ -58,13 +58,13 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         qp.end()
 
     def change_horizont_up(self):
-        if int(self.lineEdit_2.text()) <= 999 and self.antenna_height > 40:
+        if int(self.lineEdit_2.text()) <= 20 and self.antenna_height > 70:
             self.lineEdit_2.setText(str(int(self.lineEdit_2.text()) + 1))
             self.antenna_height -= 1
         self.update()
 
     def change_horizont_down(self):
-        if int(self.lineEdit_2.text()) > 0:
+        if int(self.lineEdit_2.text()) > 0 and int(self.lineEdit_2.text()) > 4:
             self.lineEdit_2.setText(str(int(self.lineEdit_2.text()) - 1))
             self.antenna_height += 1
         self.update()
@@ -90,11 +90,11 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def change_horizont_check(self):
         if self.checkBox_4.isChecked():
-            self.antenna_w = 60
-            self.antenna_h = 90
-        else:
             self.antenna_h = 60
             self.antenna_w = 90
+        else:
+            self.antenna_w = 60
+            self.antenna_h = 90
         self.update()
 
 
