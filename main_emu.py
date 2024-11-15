@@ -38,6 +38,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_arrow_right.clicked.connect(self.change_horizont_right)
         self.pushButton_arrow_left.clicked.connect(self.change_horizont_left)
         self.checkBox_polaris.stateChanged.connect(self.change_horizont_check)
+        self.pushButton_get_result.clicked.connect(self.get_main_result)
         self.result_check()
 
     def change_size(self, width, height):
@@ -103,6 +104,16 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.update()
 
     def drawAntenna(self, qp):
+        brush = QBrush(Qt.SolidPattern)
+
+        brush.setStyle(Qt.Dense3Pattern)
+        qp.setBrush(brush)
+        qp.drawRect(400, self.antenna_height, self.antenna_w, self.antenna_h)
+
+        # qp.setPen(QPen(Qt.red, 5))
+        # qp.drawLine(10, 10, 500, 500)
+
+    def drawAntennaImg(self, qp):
         brush = QBrush(Qt.SolidPattern)
 
         brush.setStyle(Qt.Dense3Pattern)
@@ -336,6 +347,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
                 self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
         self.lineEdit_result.setText(str(round(result, 2)))
+
+    def get_main_result(self):
+        self.result_check()
+        self.result_calc()
 
 
 if __name__ == '__main__':
