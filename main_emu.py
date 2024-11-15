@@ -63,31 +63,35 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_h_a.setText(str(int(self.lineEdit_h_a.text()) + 1))
             self.antenna_height -= 1
         self.update()
+        self.result_check()
 
     def change_horizont_down(self):
         if int(self.lineEdit_h_a.text()) > 4:
             self.lineEdit_h_a.setText(str(int(self.lineEdit_h_a.text()) - 1))
             self.antenna_height += 1
         self.update()
+        self.result_check()
 
     def change_horizont_left(self):
-        if int(self.lineEdit.text()) - 5 < 0:
-            self.lineEdit.setText(str(int(self.lineEdit.text()) - 5 + 360))
+        if int(self.lineEdit_a_m.text()) - 5 < 0:
+            self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) - 5 + 360))
         else:
-            self.lineEdit.setText(str(int(self.lineEdit.text()) - 5))
+            self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) - 5))
         if self.img_num - 1 < 0:
             self.img_num = self.img_num + 9
         else:
             self.img_num -= 1
         self.update()
+        self.result_check()
 
     def change_horizont_right(self):
-        if int(self.lineEdit.text()) + 5 > 359:
-            self.lineEdit.setText(str((int(self.lineEdit.text()) + 5) % 360))
+        if int(self.lineEdit_a_m.text()) + 5 > 359:
+            self.lineEdit_a_m.setText(str((int(self.lineEdit_a_m.text()) + 5) % 360))
         else:
-            self.lineEdit.setText(str(int(self.lineEdit.text()) + 5))
+            self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) + 5))
         self.img_num = (self.img_num + 1) % 10
         self.update()
+        self.result_check()
 
     def change_horizont_check(self):
         if self.checkBox_polaris.isChecked():
@@ -213,9 +217,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_b.setText('0')
         self.lineEdit_am_korr.setText(str(int(self.lineEdit_a_m.text()) + 180))
 
-
         self.lineEdit_a.setText(str(abs(int(self.spinBox_b_korr.text()) - int(self.lineEdit_am_korr.text()))))
         self.lineEdit_b.setText(self.lineEdit_a_m.text())
+        self.lineEdit_a_prm.setText(str(abs(int(self.lineEdit_b.text()) - int(self.lineEdit_a_m.text()))))
+        self.lineEdit_a_prm_p.setText(str(abs(int(self.lineEdit_b.text()) - int(self.spinBox_a_m_p.text()))))
 
         if int(self.lineEdit_a.text()) == 0:
             self.lineEdit_g_prd.setText('13')
@@ -239,6 +244,52 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_g_prd.setText('0')
         elif int(self.lineEdit_a.text()) == 180:
             self.lineEdit_g_prd.setText('3')
+
+        if int(self.lineEdit_a_prm.text()) == 0:
+            self.lineEdit_g_prm.setText('13')
+        elif int(self.lineEdit_a_prm.text()) == 5 or int(self.lineEdit_a_prm.text()) == 355:
+            self.lineEdit_g_prm.setText('12.7')
+        elif int(self.lineEdit_a_prm.text()) == 10 or int(self.lineEdit_a_prm.text()) == 350:
+            self.lineEdit_g_prm.setText('12')
+        elif int(self.lineEdit_a_prm.text()) == 15 or int(self.lineEdit_a_prm.text()) == 345:
+            self.lineEdit_g_prm.setText('10')
+        elif 20 <= int(self.lineEdit_a_prm.text()) <= 55 or 305 <= int(self.lineEdit_a_prm.text()) <= 340:
+            self.lineEdit_g_prm.setText('3')
+        elif int(self.lineEdit_a_prm.text()) == 60 or int(self.lineEdit_a_prm.text()) == 300:
+            self.lineEdit_g_prm.setText('0')
+        elif int(self.lineEdit_a_prm.text()) == 75 or int(self.lineEdit_a_prm.text()) == 285:
+            self.lineEdit_g_prm.setText('5')
+        elif 80 <= int(self.lineEdit_a_prm.text()) <= 130 or 230 <= int(self.lineEdit_a_prm.text()) <= 280:
+            self.lineEdit_g_prm.setText('0')
+        elif int(self.lineEdit_a_prm.text()) == 135 or int(self.lineEdit_a_prm.text()) == 225:
+            self.lineEdit_g_prm.setText('3')
+        elif 140 <= int(self.lineEdit_a_prm.text()) <= 175 or 185 <= int(self.lineEdit_a_prm.text()) <= 220:
+            self.lineEdit_g_prm.setText('0')
+        elif int(self.lineEdit_a_prm.text()) == 180:
+            self.lineEdit_g_prm.setText('3')
+
+        if int(self.lineEdit_a_prm_p.text()) == 0:
+            self.lineEdit_g_prm_p.setText('13')
+        elif int(self.lineEdit_a_prm_p.text()) == 5 or int(self.lineEdit_a_prm_p.text()) == 355:
+            self.lineEdit_g_prm_p.setText('12.7')
+        elif int(self.lineEdit_a_prm_p.text()) == 10 or int(self.lineEdit_a_prm_p.text()) == 350:
+            self.lineEdit_g_prm_p.setText('12')
+        elif int(self.lineEdit_a_prm_p.text()) == 15 or int(self.lineEdit_a_prm_p.text()) == 345:
+            self.lineEdit_g_prm_p.setText('10')
+        elif 20 <= int(self.lineEdit_a_prm_p.text()) <= 55 or 305 <= int(self.lineEdit_a_prm_p.text()) <= 340:
+            self.lineEdit_g_prm_p.setText('3')
+        elif int(self.lineEdit_a_prm_p.text()) == 60 or int(self.lineEdit_a_prm_p.text()) == 300:
+            self.lineEdit_g_prm_p.setText('0')
+        elif int(self.lineEdit_a_prm_p.text()) == 75 or int(self.lineEdit_a_prm_p.text()) == 285:
+            self.lineEdit_g_prm_p.setText('5')
+        elif 80 <= int(self.lineEdit_a_prm_p.text()) <= 130 or 230 <= int(self.lineEdit_a_prm_p.text()) <= 280:
+            self.lineEdit_g_prm_p.setText('0')
+        elif int(self.lineEdit_a_prm_p.text()) == 135 or int(self.lineEdit_a_prm_p.text()) == 225:
+            self.lineEdit_g_prm_p.setText('3')
+        elif 140 <= int(self.lineEdit_a_prm_p.text()) <= 175 or 185 <= int(self.lineEdit_a_prm_p.text()) <= 220:
+            self.lineEdit_g_prm_p.setText('0')
+        elif int(self.lineEdit_a_prm_p.text()) == 180:
+            self.lineEdit_g_prm_p.setText('3')
 
         if self.lineEdit_h_korr.text() == '20' and self.lineEdit_h_a.text() == '20':
             self.lineEdit_w_c.setText('8')
@@ -271,12 +322,20 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_w_p.setText('15')
 
         self.lineEdit_z_tr.setText(str(int(self.spinBox_z1.text()) + int(self.spinBox_z2.text())))
+
+        # условный уровень помехи без учета коэффициента усиления антенны "нашего" приемника и затухания сигнала помехи в сторону "нашего" приемника
+        # self.lineEdit_p_p_vh_prm.setText(
+        #     str(float(self.spinBox_p_prd.text()) + float(self.lineEdit_g_prd.text()) - float(
+        #         self.lineEdit_w_p.text()) - float(self.lineEdit_w_c.text())))
+
         self.result_calc()
 
     def result_calc(self):
-        result = abs(float(self.spinBox_p_prd.text()) + float(self.lineEdit_g_prd.text()) + 0 - float(self.lineEdit_w_c.text())) - abs(
-            float(self.lineEdit_p_p_vh_prm.text()) + 0 - float(self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
-        self.lineEdit_result.setText(str(result))
+        result = abs(float(self.spinBox_p_prd.text()) + float(self.lineEdit_g_prd.text()) + float(
+            self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - abs(
+            float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
+                self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
+        self.lineEdit_result.setText(str(round(result, 2)))
 
 
 if __name__ == '__main__':
