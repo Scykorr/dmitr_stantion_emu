@@ -18,7 +18,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle('Основное окно эмулятора')
         self.img_width = 1000
-        self.img_height = 250
+        self.img_height = 280
         self.img_num = 0
         self.antenna_height = 80
         self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
@@ -39,6 +39,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_arrow_left.clicked.connect(self.change_horizont_left)
         self.checkBox_polaris.stateChanged.connect(self.change_horizont_check)
         self.pushButton_get_result.clicked.connect(self.get_main_result)
+        self.antenna_x = self.label_antenna_img.x()
+        self.antenna_y = self.label_antenna_img.y()
         self.result_check()
 
     def change_size(self, width, height):
@@ -55,7 +57,9 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # qp.setPen(QPen(Qt.red, 5))
         # qp.drawLine(10, 10, 500, 500)
         # self.drawLines(qp)
-        self.drawAntenna(qp)
+        # self.drawAntenna(qp)
+        self.label_antenna_img.move(self.antenna_x, self.antenna_y)
+        self.drawAntennaImg(qp)
         # self.drawBrushes(qp)
         qp.end()
 
@@ -63,6 +67,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         if int(self.lineEdit_h_a.text()) < 20 and self.antenna_height > 70:
             self.lineEdit_h_a.setText(str(int(self.lineEdit_h_a.text()) + 1))
             self.antenna_height -= 1
+            self.antenna_y -= 10
+            self.label_antenna_img.move(self.antenna_x, self.antenna_y)
         self.update()
         self.result_check()
 
@@ -70,6 +76,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         if int(self.lineEdit_h_a.text()) > 4:
             self.lineEdit_h_a.setText(str(int(self.lineEdit_h_a.text()) - 1))
             self.antenna_height += 1
+            self.antenna_y += 10
         self.update()
         self.result_check()
 
@@ -114,14 +121,12 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # qp.drawLine(10, 10, 500, 500)
 
     def drawAntennaImg(self, qp):
-        brush = QBrush(Qt.SolidPattern)
+        if self.checkBox_polaris.isChecked():
+            pixmap = QPixmap('img/antenna_h_100px.png')
+        else:
+            pixmap = QPixmap('img/antenna_v_100px.png')
+        self.label_antenna_img.setPixmap(pixmap)
 
-        brush.setStyle(Qt.Dense3Pattern)
-        qp.setBrush(brush)
-        qp.drawRect(400, self.antenna_height, self.antenna_w, self.antenna_h)
-
-        # qp.setPen(QPen(Qt.red, 5))
-        # qp.drawLine(10, 10, 500, 500)
 
     def drawLines(self, qp):
         pen = QPen(Qt.black, 2, Qt.SolidLine)

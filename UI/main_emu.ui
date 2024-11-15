@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>986</width>
-    <height>895</height>
+    <height>929</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>20</x>
       <y>20</y>
       <width>951</width>
-      <height>181</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="text">
@@ -83,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
+      <y>290</y>
       <width>161</width>
       <height>581</height>
      </rect>
@@ -213,7 +213,7 @@
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>260</y>
+      <y>290</y>
       <width>791</width>
       <height>591</height>
      </rect>
@@ -1332,6 +1332,19 @@
     </property>
     <property name="text">
      <string>Поляризация</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_antenna_img">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>50</y>
+      <width>111</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
