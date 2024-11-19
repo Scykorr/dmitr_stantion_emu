@@ -21,10 +21,12 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.img_height = 280
         self.img_num = 0
         self.antenna_height = 80
+        self.diag_num = 0
         self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
+        self.diag_address = f'img/{self.diag_num}grad.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
-
+        self.diagram = QPixmap(self.diag_address)
         self.img_label = self.label
         self.antenna_w = 60
         self.antenna_h = 90
@@ -54,12 +56,14 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
         qp.drawPixmap(QPoint(), self.image.scaled(self.img_width, self.img_height))  # +++
-        # qp.setPen(QPen(Qt.red, 5))
-        # qp.drawLine(10, 10, 500, 500)
+        qp.setPen(QPen(Qt.black, 2))
+        qp.drawLine(self.antenna_x + 49, self.antenna_y + 100, 430, 278)
         # self.drawLines(qp)
         # self.drawAntenna(qp)
         self.label_antenna_img.move(self.antenna_x, self.antenna_y)
         self.drawAntennaImg(qp)
+        self.drawDiagrammImg(qp)
+
         # self.drawBrushes(qp)
         qp.end()
 
@@ -119,6 +123,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # qp.setPen(QPen(Qt.red, 5))
         # qp.drawLine(10, 10, 500, 500)
+
+    def drawDiagrammImg(self, qp):
+        pixmap = QPixmap(self.diag_address).scaled(400, 400)
+        self.label_diagram.setPixmap(pixmap)
 
     def drawAntennaImg(self, qp):
         if self.checkBox_polaris.isChecked():
