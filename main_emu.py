@@ -20,9 +20,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.img_width = 1000
         self.img_height = 280
         self.img_num = 0
+        self.img_num_h = 0
         self.antenna_height = 80
         self.diag_num = 0
-        self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
+        self.img_address = f'img/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
         self.diag_address = f'img/{self.diag_num}grad.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
