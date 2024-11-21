@@ -44,6 +44,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_get_result.clicked.connect(self.get_main_result)
         self.antenna_x = self.label_antenna_img.x()
         self.antenna_y = self.label_antenna_img.y()
+        self.left_line_antenna = 330
+        self.right_line_antenna = 530
         self.result_check()
 
     def change_size(self, width, height):
@@ -53,12 +55,14 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
-        self.img_address = f'img/horizon_main_step_{self.img_num}.jpg'
+        self.img_address = f'img/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
         qp.drawPixmap(QPoint(), self.image.scaled(self.img_width, self.img_height))  # +++
         qp.setPen(QPen(Qt.black, 2))
         qp.drawLine(self.antenna_x + 49, self.antenna_y + 100, 430, 278)
+        qp.drawLine(self.antenna_x + 49, self.antenna_y + 90, self.right_line_antenna, 278)
+        qp.drawLine(self.antenna_x + 49, self.antenna_y + 90, self.left_line_antenna, 278)
         # self.drawLines(qp)
         # self.drawAntenna(qp)
         self.label_antenna_img.move(self.antenna_x, self.antenna_y)
@@ -74,6 +78,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.antenna_height -= 1
             self.antenna_y -= 10
             self.label_antenna_img.move(self.antenna_x, self.antenna_y)
+            self.right_line_antenna += 7
+            self.left_line_antenna -= 7
         self.update()
         self.result_check()
 
@@ -82,6 +88,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_h_a.setText(str(int(self.lineEdit_h_a.text()) - 1))
             self.antenna_height += 1
             self.antenna_y += 10
+            self.right_line_antenna -= 7
+            self.left_line_antenna += 7
         self.update()
         self.result_check()
 
@@ -356,11 +364,15 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.result_calc()
 
     def result_calc(self):
-        result = abs(float(self.spinBox_p_prd.text()) + float(self.lineEdit_g_prd.text()) + float(
-            self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - abs(
-            float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
-                self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
-        self.lineEdit_result.setText(str(round(result, 2)))
+        if int(self.lineEdit_h_a.text()) >= 7:
+            result = abs(float(self.spinBox_p_prd.text()) + float(self.lineEdit_g_prd.text()) + float(
+                self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - abs(
+                float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
+                    self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
+            self.lineEdit_result.setText(str(round(result, 2)))
+        else:
+            self.lineEdit_result.setText('Связи нет')
+
 
     def get_main_result(self):
         self.result_check()
