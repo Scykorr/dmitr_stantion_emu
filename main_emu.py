@@ -46,6 +46,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.antenna_y = self.label_antenna_img.y()
         self.left_line_antenna = 330
         self.right_line_antenna = 530
+        self.groupBox_3.setVisible(False)
+        self.groupBox_5.setStyleSheet("background-color: black;")
+        self.textBrowser.setStyleSheet("background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
+        self.textBrowser.setText("")
         self.result_check()
 
     def change_size(self, width, height):
@@ -370,8 +374,13 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
                 float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
                     self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
             self.lineEdit_result.setText(str(round(result, 2)))
+            if result < 10.5:
+                self.textBrowser.setText('Коэффициент ошибки: 10^-3\nСвязи нет')
+            elif result >= 10.5:
+                self.textBrowser.setText('Коэффициент ошибки: 10^-6\nСвязь есть')
         else:
             self.lineEdit_result.setText('Связи нет')
+            self.textBrowser.setText('Коэффициент ошибки: \nСвязи нет')
 
 
     def get_main_result(self):
