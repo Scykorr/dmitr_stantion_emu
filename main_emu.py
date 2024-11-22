@@ -84,6 +84,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.label_antenna_img.move(self.antenna_x, self.antenna_y)
             self.right_line_antenna += 7
             self.left_line_antenna -= 7
+            self.img_num_h += 1
         self.update()
         self.result_check()
 
@@ -94,6 +95,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.antenna_y += 10
             self.right_line_antenna -= 7
             self.left_line_antenna += 7
+            self.img_num_h -= 1
         self.update()
         self.result_check()
 
