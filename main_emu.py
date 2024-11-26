@@ -23,7 +23,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.img_num_h = 0
         self.antenna_height = 80
         self.diag_num = 0
-        self.img_address = f'img/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
+        self.img_address = f'img/landscape/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
         self.diag_address = f'img/{self.diag_num}grad.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
@@ -59,7 +59,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def paintEvent(self, e):
         qp = QPainter()
         qp.begin(self)
-        self.img_address = f'img/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
+        self.img_address = f'img/landscape/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
         qp.drawPixmap(QPoint(), self.image.scaled(self.img_width, self.img_height))  # +++
