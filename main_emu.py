@@ -24,7 +24,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.antenna_height = 80
         self.diag_num = 0
         self.img_address = f'img/landscape/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
-        self.diag_address = f'img/{self.diag_num}grad.jpg'
+        self.diag_address = f'img/diagram/{self.diag_num}grad.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
         self.diagram = QPixmap(self.diag_address)
@@ -60,6 +60,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         qp = QPainter()
         qp.begin(self)
         self.img_address = f'img/landscape/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
+        self.diag_address = f'img/diagram/{self.diag_num}grad.png'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
         qp.drawPixmap(QPoint(), self.image.scaled(self.img_width, self.img_height))  # +++
@@ -100,14 +101,18 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.result_check()
 
     def change_horizont_left(self):
-        if int(self.lineEdit_a_m.text()) - 5 < 0:
+        if int(self.lineEdit_a_m.text()) - 5 <= 0:
             self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) - 5 + 360))
         else:
             self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) - 5))
+        self.diag_num = self.diag_num - 5
+        if self.diag_num < 0:
+            self.diag_num += 360
         if self.img_num - 1 < 0:
             self.img_num = self.img_num + 9
         else:
             self.img_num -= 1
+        print(self.diag_num)
         self.update()
         self.result_check()
 
@@ -117,6 +122,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) + 5))
         self.img_num = (self.img_num + 1) % 10
+        self.diag_num = (self.diag_num + 5) % 360
         self.update()
         self.result_check()
 
@@ -140,7 +146,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # qp.drawLine(10, 10, 500, 500)
 
     def drawDiagrammImg(self, qp):
-        pixmap = QPixmap(self.diag_address).scaled(400, 400)
+        pixmap = QPixmap(self.diag_address).scaled(600, 400)
         self.label_diagram.setPixmap(pixmap)
 
     def drawAntennaImg(self, qp):
