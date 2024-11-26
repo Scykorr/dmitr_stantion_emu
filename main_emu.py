@@ -17,7 +17,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # self.change_size(341, 300)
         self.setupUi(self)
         self.setWindowTitle('Основное окно эмулятора')
-        self.img_width = 1000
+        self.img_width = 1150
         self.img_height = 280
         self.img_num = 0
         self.img_num_h = 0
