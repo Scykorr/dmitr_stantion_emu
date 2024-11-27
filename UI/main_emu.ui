@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1140</width>
-    <height>929</height>
+    <height>943</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -214,8 +214,8 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>520</x>
       <y>290</y>
-      <width>591</width>
-      <height>591</height>
+      <width>611</width>
+      <height>611</height>
      </rect>
     </property>
     <property name="title">
@@ -1155,8 +1155,8 @@ p, li { white-space: pre-wrap; }
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>571</width>
-       <height>561</height>
+       <width>591</width>
+       <height>581</height>
       </rect>
      </property>
      <property name="title">
@@ -1166,9 +1166,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
-        <width>551</width>
-        <height>461</height>
+        <y>30</y>
+        <width>571</width>
+        <height>491</height>
        </rect>
       </property>
       <property name="text">
@@ -1179,7 +1179,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>530</y>
+        <y>550</y>
         <width>21</width>
         <height>21</height>
        </rect>
@@ -1197,7 +1197,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>530</y>
+        <y>550</y>
         <width>75</width>
         <height>23</height>
        </rect>
@@ -1210,7 +1210,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>90</x>
-        <y>530</y>
+        <y>550</y>
         <width>111</width>
         <height>16</height>
        </rect>
@@ -1223,7 +1223,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>210</x>
-        <y>530</y>
+        <y>550</y>
         <width>113</width>
         <height>20</height>
        </rect>
@@ -1241,7 +1241,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="text">
-     <string>30</string>
+     <string>0</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_h_a">
@@ -1414,7 +1414,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="text">
-     <string>16</string>
+     <string>-9</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_48">

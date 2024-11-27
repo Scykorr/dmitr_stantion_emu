@@ -124,7 +124,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.img_num = self.img_num + 9
         else:
             self.img_num -= 1
-        print(self.diag_num)
         self.update()
         self.result_check()
 
@@ -158,7 +157,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         # qp.drawLine(10, 10, 500, 500)
 
     def drawDiagrammImg(self, qp):
-        pixmap = QPixmap(self.diag_address).scaled(600, 400)
+        pixmap = QPixmap(self.diag_address).scaled(600, 500)
         self.label_diagram.setPixmap(pixmap)
 
     def drawAntennaImg(self, qp):
@@ -403,10 +402,11 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.textBrowser.setText('Коэффициент ошибки: \nСвязи нет')
 
     def change_per_up(self):
-        self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) + 1))
+        if int(self.lineEdit_p_per.text()) < -3:
+            self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) + 1))
 
     def change_per_down(self):
-        if int(self.lineEdit_p_per.text()) > 0:
+        if int(self.lineEdit_p_per.text()) > -23:
             self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) - 1))
 
     def get_main_result(self):
