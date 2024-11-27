@@ -416,10 +416,9 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def get_chat(self):
         answer_dict = {'Привет': 'Привет', 'Как дела?': 'Хорошо', 'Что делаешь?': 'Работаю'}
-        self.textEdit_message.append('-' + self.lineEdit_message.text())
+        self.textEdit_message.append('- ' + self.lineEdit_message.text())
         result_answer = ''
         for num, el in enumerate(answer_dict.items()):
-            print(self.lineEdit_message.text())
             if el[0] == self.lineEdit_message.text():
                 result_answer = el[1]
                 self.textEdit_message.append(result_answer)
