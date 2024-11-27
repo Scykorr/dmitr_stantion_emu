@@ -50,6 +50,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.groupBox_5.setStyleSheet("background-color: black;")
         self.textBrowser.setStyleSheet("background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
         self.textBrowser.setText("")
+        self.checkBox_polaris.setEnabled(False)
+        self.pushButton_arrow_up_per.clicked.connect(self.change_per_up)
+        self.pushButton_arrow_down_per.clicked.connect(self.change_per_down)
+        self.pushButton_message.clicked.connect(self.get_chat)
         self.result_check()
 
     def change_size(self, width, height):
@@ -86,6 +90,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.right_line_antenna += 7
             self.left_line_antenna -= 7
             self.img_num_h += 1
+        if int(self.lineEdit_h_a.text()) == 4:
+            self.checkBox_polaris.setEnabled(True)
+        else:
+            self.checkBox_polaris.setEnabled(False)
         self.update()
         self.result_check()
 
@@ -97,6 +105,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.right_line_antenna -= 7
             self.left_line_antenna += 7
             self.img_num_h -= 1
+        if int(self.lineEdit_h_a.text()) == 4:
+            self.checkBox_polaris.setEnabled(True)
+        else:
+            self.checkBox_polaris.setEnabled(False)
         self.update()
         self.result_check()
 
@@ -390,10 +402,32 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_result.setText('Связи нет')
             self.textBrowser.setText('Коэффициент ошибки: \nСвязи нет')
 
+    def change_per_up(self):
+        self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) + 1))
+
+    def change_per_down(self):
+        if int(self.lineEdit_p_per.text()) > 0:
+            self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) - 1))
 
     def get_main_result(self):
         self.result_check()
         self.result_calc()
+
+
+    def get_chat(self):
+        answer_dict = {'Привет': 'Привет', 'Как дела?': 'Хорошо', 'Что делаешь?': 'Работаю'}
+        self.textEdit_message.append('-' + self.lineEdit_message.text())
+        result_answer = ''
+        for num, el in enumerate(answer_dict.items()):
+            print(self.lineEdit_message.text())
+            if el[0] == self.lineEdit_message.text():
+                result_answer = el[1]
+                self.textEdit_message.append(result_answer)
+        if result_answer == '':
+            self.textEdit_message.append('Введите верный запрос!')
+
+
+
 
 
 if __name__ == '__main__':
