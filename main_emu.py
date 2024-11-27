@@ -399,7 +399,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.textBrowser.setText('Коэффициент ошибки: 10^-6\nСвязь есть')
         else:
             self.lineEdit_result.setText('Связи нет')
-            self.textBrowser.setText('Коэффициент ошибки: \nСвязи нет')
+            self.textBrowser.setText('Коэффициент ошибки: 10^-3\nСвязи нет')
 
     def change_per_up(self):
         if int(self.lineEdit_p_per.text()) < -3:
@@ -415,7 +415,15 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def get_chat(self):
-        answer_dict = {'Привет': 'Привет', 'Как дела?': 'Хорошо', 'Что делаешь?': 'Работаю'}
+        """
+        "Перейти на высоту _(число от 7 до 20)"
+        "Перейти на высоту 4 метра и сменить поляризацию"
+        "Добавить список доступных команд"
+        "Направить антенну на азимут магнитный _(число от 0 до 355)"
+        "Перейти в режим работы А6"
+        "Перейти в режим работы Е1"
+        """
+        answer_dict = {'Перейти на высоту': 'Привет', 'Как дела?': 'Хорошо', 'Что делаешь?': 'Работаю'}
         self.textEdit_message.append('- ' + self.lineEdit_message.text())
         result_answer = ''
         for num, el in enumerate(answer_dict.items()):
@@ -423,7 +431,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
                 result_answer = el[1]
                 self.textEdit_message.append(result_answer)
         if result_answer == '':
-            self.textEdit_message.append('Введите верный запрос!')
+            self.textEdit_message.append('Уточните команду!')
 
 
 
