@@ -48,7 +48,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.right_line_antenna = 530
         self.groupBox_3.setVisible(False)
         self.groupBox_5.setStyleSheet("background-color: black;")
-        self.textBrowser.setStyleSheet("background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
+        self.textBrowser.setStyleSheet(
+            "background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
         self.textBrowser.setText("")
         self.checkBox_polaris.setEnabled(False)
         self.pushButton_arrow_up_per.clicked.connect(self.change_per_up)
@@ -166,7 +167,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             pixmap = QPixmap('img/antenna_v_100px.png')
         self.label_antenna_img.setPixmap(pixmap)
-
 
     def drawLines(self, qp):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
@@ -413,7 +413,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.result_check()
         self.result_calc()
 
-
     def get_chat(self):
         """
         "Перейти на высоту _(число от 7 до 20)"
@@ -423,7 +422,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         "Перейти в режим работы А6"
         "Перейти в режим работы Е1"
         """
-        answer_dict = {'Перейти на высоту': 'Привет', 'Как дела?': 'Хорошо', 'Что делаешь?': 'Работаю'}
+        answer_dict = {'Перейти на высоту': 'Перешел на высоту',
+                       'Перейти на высоту 4 метра и сменить поляризацию': 'Перешел на высоту 4 метра и сменил поляризацию',
+                       'Направить антенну на азимут магнитный': 'Направил антенну на азимут магнитный',
+                       'Перейти в режим работы': 'Перешел в режим работы'}
         self.textEdit_message.append('- ' + self.lineEdit_message.text())
         result_answer = ''
         for num, el in enumerate(answer_dict.items()):
@@ -432,9 +434,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.textEdit_message.append(result_answer)
         if result_answer == '':
             self.textEdit_message.append('Уточните команду!')
-
-
-
 
 
 if __name__ == '__main__':
