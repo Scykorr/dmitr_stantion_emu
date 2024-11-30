@@ -22,15 +22,15 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.img_num = 0
         self.img_num_h = 0
         self.antenna_height = 80
-        self.diag_num = 0
+        self.diag_num = 210
         self.img_address = f'img/landscape/horizon_main_step_{self.img_num}{self.img_num_h}.jpg'
         self.diag_address = f'img/diagram/{self.diag_num}grad.jpg'
         self.image = QPixmap(self.img_address).scaled(
             self.img_width, self.img_height)
         self.diagram = QPixmap(self.diag_address)
         self.img_label = self.label
-        self.antenna_w = 60
-        self.antenna_h = 90
+        self.antenna_w = 90
+        self.antenna_h = 60
         # self.label.setText("<h2 style='color: blue'>img/horizon_main.jpg</h2>")
         # w = self.image.size().width()
         # h = self.image.size().height()
@@ -54,6 +54,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.checkBox_polaris.setEnabled(False)
         self.pushButton_arrow_up_per.clicked.connect(self.change_per_up)
         self.pushButton_arrow_down_per.clicked.connect(self.change_per_down)
+        self.pushButton_arrow_up_pom.clicked.connect(self.change_pom_up)
+        self.pushButton_arrow_down_pom.clicked.connect(self.change_pom_down)
         self.pushButton_message.clicked.connect(self.get_chat)
         self.result_check()
 
@@ -140,11 +142,12 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def change_horizont_check(self):
         if self.checkBox_polaris.isChecked():
-            self.antenna_h = 60
-            self.antenna_w = 90
-        else:
             self.antenna_w = 60
             self.antenna_h = 90
+        else:
+            self.antenna_h = 60
+            self.antenna_w = 90
+
         self.update()
 
     def drawAntenna(self, qp):
@@ -163,9 +166,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def drawAntennaImg(self, qp):
         if self.checkBox_polaris.isChecked():
-            pixmap = QPixmap('img/antenna_h_100px.png')
-        else:
             pixmap = QPixmap('img/antenna_v_100px.png')
+
+        else:
+            pixmap = QPixmap('img/antenna_h_100px.png')
         self.label_antenna_img.setPixmap(pixmap)
 
     def drawLines(self, qp):
@@ -408,6 +412,15 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def change_per_down(self):
         if int(self.lineEdit_p_per.text()) > -23:
             self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) - 1))
+
+
+    def change_pom_up(self):
+        if int(self.lineEdit_p_p_vh_prm.text()) < -3:
+            self.lineEdit_p_p_vh_prm.setText(str(int(self.lineEdit_p_p_vh_prm.text()) + 1))
+
+    def change_pom_down(self):
+        if int(self.lineEdit_p_p_vh_prm.text()) > -23:
+            self.lineEdit_p_p_vh_prm.setText(str(int(self.lineEdit_p_p_vh_prm.text()) - 1))
 
     def get_main_result(self):
         self.result_check()
