@@ -7,26 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1184</width>
-    <height>943</height>
+    <height>962</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>20</y>
-      <width>1091</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_arrow_left">
     <property name="geometry">
      <rect>
@@ -85,51 +72,12 @@
       <x>10</x>
       <y>310</y>
       <width>501</width>
-      <height>571</height>
+      <height>611</height>
      </rect>
     </property>
     <property name="title">
      <string>ПУ</string>
     </property>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>530</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Кнопка 1</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>530</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Кнопка 2</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>530</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Кнопка 3</string>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="groupBox_5">
      <property name="geometry">
       <rect>
@@ -208,6 +156,38 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
     </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>520</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Спсиок доступных комманд</string>
+     </property>
+    </widget>
+    <widget class="QPlainTextEdit" name="plainTextEdit_commands_list">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>540</y>
+       <width>461</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>Перейти на высоту: _(число от 7 до 20)
+Перейти на высоту 4 метра и сменить поляризацию
+Направить антенну на азимут магнитный: _(число от 0 до 355)
+Перейти в режим работы: _(А6/Е1)</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
@@ -215,7 +195,7 @@ p, li { white-space: pre-wrap; }
       <x>520</x>
       <y>290</y>
       <width>651</width>
-      <height>611</height>
+      <height>631</height>
      </rect>
     </property>
     <property name="title">
@@ -227,7 +207,7 @@ p, li { white-space: pre-wrap; }
        <x>10</x>
        <y>20</y>
        <width>631</width>
-       <height>581</height>
+       <height>591</height>
       </rect>
      </property>
      <property name="title">
@@ -1197,7 +1177,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="text">
-     <string>0</string>
+     <string>210</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_h_a">
