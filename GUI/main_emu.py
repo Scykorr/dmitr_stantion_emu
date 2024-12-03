@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1184, 962)
+        MainWindow.resize(1184, 981)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_arrow_left = QtWidgets.QPushButton(self.centralwidget)
@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         self.pushButton_arrow_down.setGeometry(QtCore.QRect(790, 110, 75, 23))
         self.pushButton_arrow_down.setObjectName("pushButton_arrow_down")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(10, 310, 501, 611))
+        self.groupBox.setGeometry(QtCore.QRect(10, 310, 501, 621))
         self.groupBox.setObjectName("groupBox")
         self.groupBox_5 = QtWidgets.QGroupBox(self.groupBox)
         self.groupBox_5.setGeometry(QtCore.QRect(10, 20, 481, 171))
@@ -54,10 +54,9 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.groupBox)
         self.label.setGeometry(QtCore.QRect(10, 520, 161, 21))
         self.label.setObjectName("label")
-        self.plainTextEdit_commands_list = QtWidgets.QPlainTextEdit(self.groupBox)
-        self.plainTextEdit_commands_list.setGeometry(QtCore.QRect(10, 540, 461, 61))
-        self.plainTextEdit_commands_list.setReadOnly(True)
-        self.plainTextEdit_commands_list.setObjectName("plainTextEdit_commands_list")
+        self.listView = QtWidgets.QListView(self.groupBox)
+        self.listView.setGeometry(QtCore.QRect(10, 541, 481, 71))
+        self.listView.setObjectName("listView")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setGeometry(QtCore.QRect(520, 290, 651, 631))
         self.groupBox_2.setObjectName("groupBox_2")
@@ -449,10 +448,6 @@ class Ui_MainWindow(object):
         self.pushButton_message.setText(_translate("MainWindow", "Отправить"))
         self.label_49.setText(_translate("MainWindow", "Поле ввода сообщения"))
         self.label.setText(_translate("MainWindow", "Спсиок доступных комманд"))
-        self.plainTextEdit_commands_list.setPlainText(_translate("MainWindow", "Перейти на высоту: _(число от 7 до 20)\n"
-"Перейти на высоту 4 метра и сменить поляризацию\n"
-"Направить антенну на азимут магнитный: _(число от 0 до 355)\n"
-"Перейти в режим работы: _(А6/Е1)"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Основное окно"))
         self.groupBox_4.setTitle(_translate("MainWindow", "Графики и диаграммы"))
         self.label_36.setText(_translate("MainWindow", "дБ"))

@@ -3,7 +3,7 @@
 
 import sys
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QWidget, QApplication
 from PyQt5.QtGui import QPainter, QColor, QPen, QBrush, QPixmap
 from PyQt5.QtCore import Qt, QPoint
@@ -57,7 +57,35 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_arrow_up_pom.clicked.connect(self.change_pom_up)
         self.pushButton_arrow_down_pom.clicked.connect(self.change_pom_down)
         self.pushButton_message.clicked.connect(self.get_chat)
+        self.listView.clicked.connect(self.get_val_list_view)
+        self.add_val_list_view()
         self.result_check()
+
+    def add_val_list_view(self):
+        entries = ['Перейти на высоту: _(число от 7 до 20)', 'Перейти на высоту 4 метра и сменить поляризацию',
+                   'Направить антенну на азимут магнитный: _(число от 0 до 355)', 'Перейти в режим работы: _(А6/Е1)']
+        self.model = QtGui.QStandardItemModel()
+        self.listView.setModel(self.model)
+
+        for i in entries:
+            item = QtGui.QStandardItem(i)
+            self.model.appendRow(item)
+
+    def get_val_list_view(self):
+        index = self.listView.currentIndex()
+        if index.isValid():
+            # Использование модели чтобы получить данные
+            item_data = self.model.data(index)
+            res_str = ''
+            if item_data == 'Перейти на высоту: _(число от 7 до 20)':
+                res_str = 'Перейти на высоту: '
+            elif item_data == 'Перейти на высоту 4 метра и сменить поляризацию':
+                res_str = 'Перейти на высоту 4 метра и сменить поляризацию'
+            elif item_data == 'Направить антенну на азимут магнитный: _(число от 0 до 355)':
+                res_str = 'Направить антенну на азимут магнитный: '
+            elif item_data == 'Перейти в режим работы: _(А6/Е1)':
+                res_str = 'Перейти в режим работы: '
+            self.lineEdit_message.setText(res_str)
 
     def change_size(self, width, height):
         self.setFixedWidth(width)
@@ -412,7 +440,6 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def change_per_down(self):
         if int(self.lineEdit_p_per.text()) > -23:
             self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) - 1))
-
 
     def change_pom_up(self):
         if int(self.lineEdit_p_p_vh_prm.text()) < -3:

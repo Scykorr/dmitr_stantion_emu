@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1184</width>
-    <height>962</height>
+    <height>981</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,7 +72,7 @@
       <x>10</x>
       <y>310</y>
       <width>501</width>
-      <height>611</height>
+      <height>621</height>
      </rect>
     </property>
     <property name="title">
@@ -169,23 +169,14 @@ p, li { white-space: pre-wrap; }
       <string>Спсиок доступных комманд</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit_commands_list">
+    <widget class="QListView" name="listView">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>540</y>
-       <width>461</width>
-       <height>61</height>
+       <y>541</y>
+       <width>481</width>
+       <height>71</height>
       </rect>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="plainText">
-      <string>Перейти на высоту: _(число от 7 до 20)
-Перейти на высоту 4 метра и сменить поляризацию
-Направить антенну на азимут магнитный: _(число от 0 до 355)
-Перейти в режим работы: _(А6/Е1)</string>
      </property>
     </widget>
    </widget>
