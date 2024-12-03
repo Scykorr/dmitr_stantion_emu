@@ -46,7 +46,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.antenna_y = self.label_antenna_img.y()
         self.left_line_antenna = 330
         self.right_line_antenna = 530
-        self.groupBox_3.setVisible(False)
+        self.groupBox_3.setVisible(True)
         self.groupBox_5.setStyleSheet("background-color: black;")
         self.textBrowser.setStyleSheet(
             "background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
@@ -274,7 +274,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.lineEdit_h_a.text() == '':
             self.lineEdit_h_a.setText('16')
         if self.lineEdit_am_korr.text() == '':
-            self.lineEdit_am_korr.setText('0')
+            self.lineEdit_am_korr.setText('210')
         if self.spinBox_b_korr.text() == '':
             self.spinBox_b_korr.setText('215')
         if self.lineEdit_a.text() == '':
@@ -288,7 +288,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.lineEdit_w_p.text() == '':
             self.lineEdit_w_p.setText('15')
         if self.spinBox_k.text() == '':
-            self.spinBox_k.setText('25')
+            self.spinBox_k.setText('0')
         if self.spinBox_z1.text() == '':
             self.spinBox_z1.setText('10')
         if self.spinBox_z2.text() == '':
@@ -298,12 +298,11 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.lineEdit_h_korr.text() == '':
             self.lineEdit_h_korr.setText('16')
         if self.spinBox_a_m_p.text() == '':
-            self.spinBox_a_m_p.setText('0')
+            self.spinBox_a_m_p.setText('70')
         if self.lineEdit_p_p_vh_prm.text() == '':
             self.lineEdit_p_p_vh_prm.setText('-7')
         if self.lineEdit_b.text() == '':
-            self.lineEdit_b.setText('0')
-        self.lineEdit_am_korr.setText(str(int(self.lineEdit_a_m.text()) + 180))
+            self.lineEdit_b.setText('30')
 
         self.lineEdit_a.setText(str(abs(int(self.spinBox_b_korr.text()) - int(self.lineEdit_am_korr.text()))))
         self.lineEdit_b.setText(self.lineEdit_a_m.text())
@@ -400,13 +399,13 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.lineEdit_w_c.setText('15')
 
-        if self.lineEdit_h_a.text() == '20':
+        if int(self.lineEdit_h_a.text()) == 20:
             self.lineEdit_w_p.setText('10.8')
-        elif 20 < int(self.lineEdit_h_a.text()) <= 16:
+        elif 16 < int(self.lineEdit_h_a.text()) <= 20:
             self.lineEdit_w_p.setText('11')
-        elif 16 < int(self.lineEdit_h_a.text()) <= 12:
+        elif 12 < int(self.lineEdit_h_a.text()) <= 16:
             self.lineEdit_w_p.setText('11.2')
-        elif 12 < int(self.lineEdit_h_a.text()) <= 4:
+        elif 4 < int(self.lineEdit_h_a.text()) <= 12:
             self.lineEdit_w_p.setText('15')
 
         self.lineEdit_z_tr.setText(str(int(self.spinBox_z1.text()) + int(self.spinBox_z2.text())))
@@ -420,7 +419,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def result_calc(self):
         if int(self.lineEdit_h_a.text()) >= 7:
-            result = abs(float(self.spinBox_p_prd.text()) + float(self.lineEdit_g_prd.text()) + float(
+            result = abs(float(self.lineEdit_p_per.text()) + float(self.lineEdit_g_prd.text()) + float(
                 self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - abs(
                 float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
                     self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
@@ -436,18 +435,26 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
     def change_per_up(self):
         if int(self.lineEdit_p_per.text()) < -3:
             self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) + 1))
+        self.update()
+        self.result_check()
 
     def change_per_down(self):
         if int(self.lineEdit_p_per.text()) > -23:
             self.lineEdit_p_per.setText(str(int(self.lineEdit_p_per.text()) - 1))
+        self.update()
+        self.result_check()
 
     def change_pom_up(self):
         if int(self.lineEdit_p_p_vh_prm.text()) < -3:
             self.lineEdit_p_p_vh_prm.setText(str(int(self.lineEdit_p_p_vh_prm.text()) + 1))
+        self.update()
+        self.result_check()
 
     def change_pom_down(self):
         if int(self.lineEdit_p_p_vh_prm.text()) > -23:
             self.lineEdit_p_p_vh_prm.setText(str(int(self.lineEdit_p_p_vh_prm.text()) - 1))
+        self.update()
+        self.result_check()
 
     def get_main_result(self):
         self.result_check()
