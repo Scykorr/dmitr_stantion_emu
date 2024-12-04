@@ -46,7 +46,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.antenna_y = self.label_antenna_img.y()
         self.left_line_antenna = 330
         self.right_line_antenna = 530
-        self.groupBox_3.setVisible(True)
+        self.groupBox_3.setVisible(False)
         self.groupBox_5.setStyleSheet("background-color: black;")
         self.textBrowser.setStyleSheet(
             "background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
@@ -144,10 +144,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.result_check()
 
     def change_horizont_left(self):
-        if int(self.lineEdit_a_m.text()) - 5 <= 0:
-            self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) - 5 + 360))
+        if int(self.lineEdit_am_korr.text()) - 5 <= 0:
+            self.lineEdit_am_korr.setText(str((int(self.lineEdit_am_korr.text()) - 5 + 360) % 360))
         else:
-            self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) - 5))
+            self.lineEdit_am_korr.setText(str(int(self.lineEdit_am_korr.text()) - 5))
         self.diag_num = self.diag_num - 5
         if self.diag_num < 0:
             self.diag_num += 360
@@ -159,10 +159,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.result_check()
 
     def change_horizont_right(self):
-        if int(self.lineEdit_a_m.text()) + 5 > 359:
-            self.lineEdit_a_m.setText(str((int(self.lineEdit_a_m.text()) + 5) % 360))
+        if int(self.lineEdit_am_korr.text()) + 5 > 359:
+            self.lineEdit_am_korr.setText(str((int(self.lineEdit_am_korr.text()) + 5) % 360))
         else:
-            self.lineEdit_a_m.setText(str(int(self.lineEdit_a_m.text()) + 5))
+            self.lineEdit_am_korr.setText(str(int(self.lineEdit_am_korr.text()) + 5))
         self.img_num = (self.img_num + 1) % 10
         self.diag_num = (self.diag_num + 5) % 360
         self.update()
@@ -275,8 +275,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_h_a.setText('16')
         if self.lineEdit_am_korr.text() == '':
             self.lineEdit_am_korr.setText('210')
-        if self.spinBox_b_korr.text() == '':
-            self.spinBox_b_korr.setText('215')
+        if self.lineEdit_b_korr.text() == '':
+            self.lineEdit_b_korr.setText('215')
         if self.lineEdit_a.text() == '':
             self.lineEdit_a.setText('0')
         if self.lineEdit_g_prd.text() == '':
@@ -303,8 +303,9 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_p_p_vh_prm.setText('-7')
         if self.lineEdit_b.text() == '':
             self.lineEdit_b.setText('30')
-
-        self.lineEdit_a.setText(str(abs(int(self.spinBox_b_korr.text()) - int(self.lineEdit_am_korr.text()))))
+        # self.lineEdit_am_korr.setText(str((int(self.lineEdit_b.text()) + 180) % 360))
+        self.lineEdit_b_korr.setText(str((int(self.lineEdit_a_m.text()) + 185) % 360))
+        self.lineEdit_a.setText(str(abs(int(self.lineEdit_b_korr.text()) - int(self.lineEdit_am_korr.text()))))
         self.lineEdit_b.setText(self.lineEdit_a_m.text())
         self.lineEdit_a_prm.setText(str(abs(int(self.lineEdit_b.text()) - int(self.lineEdit_a_m.text()))))
         self.lineEdit_a_prm_p.setText(str(abs(int(self.lineEdit_b.text()) - int(self.spinBox_a_m_p.text()))))
@@ -419,10 +420,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def result_calc(self):
         if int(self.lineEdit_h_a.text()) >= 7:
-            result = abs(float(self.lineEdit_p_per.text()) + float(self.lineEdit_g_prd.text()) + float(
-                self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - abs(
-                float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
-                    self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
+            result = (float(self.lineEdit_p_per.text()) + float(self.lineEdit_g_prd.text()) + float(
+                self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - (
+                             float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
+                         self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
             self.lineEdit_result.setText(str(round(result, 2)))
             if result < 10.5:
                 self.textBrowser.setText('Коэффициент ошибки: 10^-3\nСвязи нет')
@@ -469,11 +470,26 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.textEdit_message.append('- ' + self.lineEdit_message.text())
         result_answer = ''
         for num, el in enumerate(answer_dict.items()):
-            if el[0] == self.lineEdit_message.text():
+            if el[0] == 'Перейти на высоту:' and ('Перейти на высоту:' in self.lineEdit_message.text()):
+                result_answer = el[1] + ' ' + self.lineEdit_message.text().split()[-1]
+                self.lineEdit_h_korr.setText(self.lineEdit_message.text().split()[-1])
+                self.textEdit_message.append(result_answer)
+            elif el[0] == 'Перейти на высоту 4 метра и сменить поляризацию' and (
+                    'Перейти на высоту 4 метра и сменить поляризацию' in self.lineEdit_message.text()):
                 result_answer = el[1]
+                self.lineEdit_h_korr.setText('4')
+                self.textEdit_message.append(result_answer)
+            elif el[0] == 'Направить антенну на азимут магнитный:' and ('Направить антенну на азимут магнитный:' in self.lineEdit_message.text()):
+                result_answer = el[1] + ' ' + self.lineEdit_message.text().split()[-1]
+                self.lineEdit_a_m.setText(self.lineEdit_message.text().split()[-1])
+                self.textEdit_message.append(result_answer)
+            elif el[0] == 'Перейти в режим работы:' and ('Перейти в режим работы:' in self.lineEdit_message.text()):
+                result_answer = el[1] + ' ' + self.lineEdit_message.text().split()[-1]
                 self.textEdit_message.append(result_answer)
         if result_answer == '':
             self.textEdit_message.append('Уточните команду!')
+        self.get_main_result()
+        self.update()
 
 
 if __name__ == '__main__':
