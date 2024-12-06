@@ -63,6 +63,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.checkBox_polaris_3.stateChanged.connect(self.result_check)
         self.add_val_list_view()
         self.result_check()
+        self.password_res = '1'
 
     def add_val_list_view(self):
         entries = ['Перейти на высоту: _(число от 7 до 20)', 'Перейти на высоту 4 метра и сменить поляризацию',
