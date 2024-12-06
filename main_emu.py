@@ -58,6 +58,9 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_arrow_down_pom.clicked.connect(self.change_pom_down)
         self.pushButton_message.clicked.connect(self.get_chat)
         self.listView.clicked.connect(self.get_val_list_view)
+        self.checkBox_polaris.stateChanged.connect(self.result_check)
+        self.checkBox_polaris_2.stateChanged.connect(self.result_check)
+        self.checkBox_polaris_3.stateChanged.connect(self.result_check)
         self.add_val_list_view()
         self.result_check()
 
@@ -287,8 +290,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_w_c.setText('15')
         if self.lineEdit_w_p.text() == '':
             self.lineEdit_w_p.setText('15')
-        if self.spinBox_k.text() == '':
-            self.spinBox_k.setText('0')
+        if self.lineEdit_k.text() == '':
+            self.lineEdit_k.setText('0')
         if self.spinBox_z1.text() == '':
             self.spinBox_z1.setText('10')
         if self.spinBox_z2.text() == '':
@@ -410,6 +413,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             self.lineEdit_w_p.setText('15')
 
         self.lineEdit_z_tr.setText(str(int(self.spinBox_z1.text()) + int(self.spinBox_z2.text())))
+        if self.checkBox_polaris.isChecked() or self.checkBox_polaris_2.isChecked() or self.checkBox_polaris_3.isChecked():
+            self.lineEdit_k.setText('25')
+        else:
+            self.lineEdit_k.setText('0')
 
         # условный уровень помехи без учета коэффициента усиления антенны "нашего" приемника и затухания сигнала помехи в сторону "нашего" приемника
         # self.lineEdit_p_p_vh_prm.setText(
@@ -423,7 +430,7 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
             result = (float(self.lineEdit_p_per.text()) + float(self.lineEdit_g_prd.text()) + float(
                 self.lineEdit_a_prm.text()) - float(self.lineEdit_w_c.text())) - (
                              float(self.lineEdit_p_p_vh_prm.text()) + float(self.lineEdit_g_prm_p.text()) - float(
-                         self.lineEdit_w_p.text())) + float(self.spinBox_k.text())
+                         self.lineEdit_w_p.text())) + float(self.lineEdit_k.text())
             self.lineEdit_result.setText(str(round(result, 2)))
             if result < 10.5:
                 self.textBrowser.setText('Коэффициент ошибки: 10^-3\nСвязи нет')
@@ -478,6 +485,10 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
                     'Перейти на высоту 4 метра и сменить поляризацию' in self.lineEdit_message.text()):
                 result_answer = el[1]
                 self.lineEdit_h_korr.setText('4')
+                if self.checkBox_polaris_2.isChecked():
+                    self.checkBox_polaris_2.setChecked(False)
+                else:
+                    self.checkBox_polaris_2.setChecked(True)
                 self.textEdit_message.append(result_answer)
             elif el[0] == 'Направить антенну на азимут магнитный:' and ('Направить антенну на азимут магнитный:' in self.lineEdit_message.text()):
                 result_answer = el[1] + ' ' + self.lineEdit_message.text().split()[-1]

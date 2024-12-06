@@ -907,28 +907,6 @@ p, li { white-space: pre-wrap; }
         <string>К</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox_k">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>390</y>
-         <width>111</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>25</number>
-       </property>
-       <property name="singleStep">
-        <number>25</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_11">
        <property name="geometry">
         <rect>
@@ -1149,6 +1127,16 @@ p, li { white-space: pre-wrap; }
         <string>30</string>
        </property>
       </widget>
+      <widget class="QLineEdit" name="lineEdit_k">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>390</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
     </widget>
    </widget>
@@ -1240,10 +1228,10 @@ p, li { white-space: pre-wrap; }
    <widget class="QCheckBox" name="checkBox_polaris">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>600</x>
       <y>40</y>
-      <width>121</width>
-      <height>17</height>
+      <width>181</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="font">
@@ -1252,7 +1240,7 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="text">
-     <string>Поляризация</string>
+     <string>Поляризация передат</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_antenna_img">
@@ -1442,6 +1430,42 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>210</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_polaris_2">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>70</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Поляризация приемн</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_polaris_3">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>100</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Поляризация помех</string>
     </property>
    </widget>
   </widget>
