@@ -4,7 +4,7 @@
 import sys
 
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QWidget, QApplication
+from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox
 from PyQt5.QtGui import QPainter, QColor, QPen, QBrush, QPixmap
 from PyQt5.QtCore import Qt, QPoint
 from GUI.main_emu import Ui_MainWindow
@@ -48,6 +48,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.right_line_antenna = 530
         self.groupBox_3.setVisible(False)
         self.groupBox_5.setStyleSheet("background-color: black;")
+        self.groupBox_login.setStyleSheet("background-color: white;")
+        self.groupBox_additional_func.setStyleSheet("background-color: white;")
         self.textBrowser.setStyleSheet(
             "background-color: black; color: green; text-align: center; content-align: center; border: none; font-size: 14px")
         self.textBrowser.setText("")
@@ -63,7 +65,65 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.checkBox_polaris_3.stateChanged.connect(self.result_check)
         self.add_val_list_view()
         self.result_check()
-        self.password_res = '1'
+        self.user = 'Гость'
+        self.login_val = 'admin'
+        self.password_val = '1'
+        self.groupBox_login.setVisible(False)
+        self.groupBox_additional_func.setVisible(False)
+        self.pushButton_entry_config.clicked.connect(self.login)
+        self.pushButton_login_next.clicked.connect(self.open_config)
+        self.pushButton_login_back.clicked.connect(self.close_login)
+        self.pushButton_close_admin_pannel.clicked.connect(self.close_config)
+        self.pushButton_logout.clicked.connect(self.logout_user)
+        self.pushButton_change_pass.clicked.connect(self.change_pass)
+
+    def login(self):
+        if self.label_52.text() == 'Админ':
+            self.groupBox_additional_func.setVisible(True)
+        else:
+            self.groupBox_login.setVisible(True)
+
+    def open_config(self):
+        if self.lineEdit_username.text() == self.login_val and self.lineEdit_password.text() == self.password_val:
+            self.groupBox_login.setVisible(False)
+            self.lineEdit_username.setText('')
+            self.lineEdit_password.setText('')
+            self.groupBox_additional_func.setVisible(True)
+            self.label_52.setText('Админ')
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Неверно введен логин или пароль!")
+            msg.setWindowTitle("Ошибка!")
+            msg.exec_()
+
+    def close_login(self):
+        self.groupBox_login.setVisible(False)
+        self.lineEdit_username.setText('')
+        self.lineEdit_password.setText('')
+
+    def close_config(self):
+        self.lineEdit_new_pass.setText('')
+        self.lineEdit_new_pass_repeat.setText('')
+        self.groupBox_additional_func.setVisible(False)
+
+    def logout_user(self):
+        self.label_52.setText('Гость')
+
+    def change_pass(self):
+        if self.lineEdit_new_pass_repeat.text() == self.lineEdit_new_pass.text() != '':
+            self.password_val = self.lineEdit_new_pass_repeat.text()
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("пароль успешно изменен!")
+            msg.setWindowTitle("Успешно!")
+            msg.exec_()
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Пароли не совпадают или пароль пустой!")
+            msg.setWindowTitle("Ошибка!")
+            msg.exec_()
 
     def add_val_list_view(self):
         entries = ['Перейти на высоту: _(число от 7 до 20)', 'Перейти на высоту 4 метра и сменить поляризацию',
@@ -491,7 +551,8 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
                 else:
                     self.checkBox_polaris_2.setChecked(True)
                 self.textEdit_message.append(result_answer)
-            elif el[0] == 'Направить антенну на азимут магнитный:' and ('Направить антенну на азимут магнитный:' in self.lineEdit_message.text()):
+            elif el[0] == 'Направить антенну на азимут магнитный:' and (
+                    'Направить антенну на азимут магнитный:' in self.lineEdit_message.text()):
                 result_answer = el[1] + ' ' + self.lineEdit_message.text().split()[-1]
                 self.lineEdit_a_m.setText(self.lineEdit_message.text().split()[-1])
                 self.textEdit_message.append(result_answer)
