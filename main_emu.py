@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
+import sqlite3
 import sys
 
 from PyQt5 import QtWidgets, QtGui
@@ -76,6 +76,21 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_close_admin_pannel.clicked.connect(self.close_config)
         self.pushButton_logout.clicked.connect(self.logout_user)
         self.pushButton_change_pass.clicked.connect(self.change_pass)
+        self.select_pass()
+
+    def select_pass(self):
+        conn = sqlite3.connect('main.db')
+        cursor = conn.cursor()
+
+        select_query = 'SELECT * FROM pass'
+        cursor.execute(select_query)
+        rows = cursor.fetchall()
+        self.password_val = rows[0][1]
+
+        conn.commit()
+        conn.close()
+
+
 
     def login(self):
         if self.label_52.text() == 'Админ':
@@ -112,7 +127,17 @@ class MainClass(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def change_pass(self):
         if self.lineEdit_new_pass_repeat.text() == self.lineEdit_new_pass.text() != '':
-            self.password_val = self.lineEdit_new_pass_repeat.text()
+            conn = sqlite3.connect('main.db')
+            cursor = conn.cursor()
+
+            update_query = 'UPDATE pass SET pass = ? WHERE id = ?'
+            data = (f'{self.lineEdit_new_pass_repeat.text()}', 1)  # Укажите новые данныеВыполняем запрос на обновление
+            cursor.execute(update_query, data)
+
+            conn.commit()
+            conn.close()
+            self.select_pass()
+
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
             msg.setText("пароль успешно изменен!")
